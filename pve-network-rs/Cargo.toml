@@ -1,0 +1,84 @@
+[workspace]
+members = [
+    "crates/net-api",
+    "crates/net-core", 
+    "crates/net-config",
+    "crates/net-validate",
+    "crates/net-apply",
+    "crates/sdn-core",
+    "crates/sdn-drivers",
+    "crates/net-cli",
+    "crates/net-test",
+    "crates/net-migration",
+    "crates/container-integration",
+    "crates/event-bus",
+    "crates/storage-integration",
+    "examples", "crates/pve-shared-types",
+]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+authors = ["Proxmox Support Team <support@proxmox.com>"]
+edition = "2021"
+license = "AGPL-3.0"
+repository = "https://git.proxmox.com/"
+
+[workspace.dependencies]
+# Proxmox dependencies (will be available in Proxmox build environment)
+# proxmox-router = "3.0"
+# proxmox-rest-server = "0.7"
+# proxmox-schema = "3.0"
+# proxmox-sys = "0.6"
+# proxmox-async = "0.4"
+# proxmox-io = "1.0"
+
+# Async runtime
+tokio = { version = "1.0", features = ["full"] }
+futures = "0.3"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Error handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# Networking
+ipnet = { version = "2.9", features = ["serde"] }
+mac_address = "1.1"
+
+# Configuration parsing
+regex = "1.10"
+
+# Logging
+log = "0.4"
+env_logger = "0.11"
+
+# Testing
+mockall = "0.12"
+tempfile = "3.8"
+
+# CLI
+clap = { version = "4.4", features = ["derive"] }
+
+# Async traits
+async-trait = "0.1"
+
+# Collections
+indexmap = "2.0"
+
+# Date/time
+chrono = { version = "0.4", features = ["serde"] }
+
+# HTTP client
+reqwest = { version = "0.11", features = ["json"] }
+urlencoding = "2.1"
+
+# HTTP server and routing
+hyper = { version = "0.14", features = ["full"] }
+http = "0.2"
+
+# Configuration management
+config = "0.14"

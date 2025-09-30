@@ -1,0 +1,56 @@
+# Example migration configuration file
+# This file demonstrates the configuration options for the migration system
+
+# Current migration phase
+# Options: perl-only, rust-read-only, rust-basic-write, rust-advanced, rust-sdn, rust-full
+phase = "rust-read-only"
+
+# Global fallback settings
+fallback_enabled = true
+fallback_timeout = 30
+
+# Perl API configuration
+perl_api_base_url = "http://localhost:8006"
+perl_api_timeout = 60
+
+# Monitoring and logging
+log_migration_decisions = true
+metrics_enabled = true
+
+# Feature flags
+[features]
+enable_sdn_migration = false
+enable_advanced_networking = false
+enable_container_integration = true
+
+# Per-endpoint configuration
+[endpoints."/api2/json/nodes/{node}/network"]
+use_rust = true
+fallback_on_error = true
+rust_timeout = 30
+rust_methods = ["GET"]
+
+[endpoints."/api2/json/nodes/{node}/network/{iface}"]
+use_rust = true
+fallback_on_error = true
+rust_timeout = 30
+rust_methods = ["GET", "PUT", "DELETE"]
+
+[endpoints."/api2/json/sdn/zones"]
+use_rust = false
+fallback_on_error = true
+rust_timeout = 45
+rust_methods = ["GET"]
+
+[endpoints."/api2/json/sdn/vnets"]
+use_rust = false
+fallback_on_error = true
+rust_timeout = 45
+rust_methods = ["GET"]
+
+# Write operations - more conservative settings
+[endpoints."/api2/json/nodes/{node}/network/reload"]
+use_rust = false
+fallback_on_error = true
+rust_timeout = 120
+rust_methods = ["POST"]

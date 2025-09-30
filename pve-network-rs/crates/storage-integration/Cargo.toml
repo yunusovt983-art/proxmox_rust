@@ -1,0 +1,32 @@
+[package]
+name = "storage-integration"
+version = "0.1.0"
+edition = "2021"
+authors = ["Proxmox Server Solutions GmbH"]
+license = "AGPL-3.0"
+description = "Storage system integration for pve-network"
+
+[dependencies]
+anyhow = "1.0"
+async-trait = "0.1"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1.0", features = ["full"] }
+tracing = "0.1"
+uuid = { version = "1.0", features = ["v4"] }
+chrono = { version = "0.4", features = ["serde"] }
+thiserror = "1.0"
+pve-shared-types = { path = "../pve-shared-types" }
+pve-event-bus = { path = "../event-bus" }
+
+# Proxmox dependencies (commented out - not available in this environment)
+# proxmox-schema = "3.0"
+# proxmox-sys = "0.5"
+
+# Internal dependencies
+pve-network-core = { path = "../net-core" }
+pve-network-config = { path = "../net-config" }
+pve-sdn-core = { path = "../sdn-core" }
+
+[dev-dependencies]
+tokio-test = "0.4"

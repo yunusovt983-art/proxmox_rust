@@ -1,0 +1,39 @@
+[package]
+name = "net-migration"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+# Workspace dependencies
+tokio.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+log.workspace = true
+async-trait.workspace = true
+reqwest.workspace = true
+futures.workspace = true
+urlencoding.workspace = true
+pve-event-bus = { path = "../event-bus" }
+pve-shared-types = { path = "../pve-shared-types" }
+
+# HTTP and routing (will be available in Proxmox environment)
+# proxmox-router = { workspace = true }
+# proxmox-rest-server = { workspace = true }
+# proxmox-schema = { workspace = true }
+
+# For now, using hyper directly for HTTP handling
+hyper = { version = "0.14", features = ["full"] }
+http = "0.2"
+
+# Configuration
+config = "0.14"
+toml = "0.8"
+
+# CLI
+clap = { version = "4.4", features = ["derive"] }
+env_logger = "0.11"

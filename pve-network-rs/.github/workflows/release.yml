@@ -1,0 +1,76 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  create-release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+
+  build-debian:
+    name: Build Debian Packages
+    runs-on: ubuntu-latest
+    needs: create-release
+    strategy:
+      matrix:
+        arch: [amd64, arm64]
+    container:
+      image: debian:bookworm
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install build dependencies
+      run: |
+        apt-get update
+        apt-get install -y \
+          build-essential \
+          debhelper \
+          dh-cargo \
+          cargo \
+          rustc \
+          git \
+          pkg-config \
+          libssl-dev
+
+    - name: Build package
+      run: |
+        dpkg-buildpackage -us -uc -b
+
+    - name: Upload Debian package
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ needs.create-release.outputs.upload_url }}
+        asset_path: ../pve-network-rs_*.deb
+        asset_name: pve-network-rs_${{ matrix.arch }}.deb
+        asset_content_type: application/vnd.debian.binary-package
+
+    - name: Upload CLI package
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ needs.create-release.outputs.upload_url }}
+        asset_path: ../pvenet_*.deb
+        asset_name: pvenet_${{ matrix.arch }}.deb
+        asset_content_type: application/vnd.debian.binary-package

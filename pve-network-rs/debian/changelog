@@ -1,0 +1,7 @@
+pve-network-rs (0.1.0-1) bookworm; urgency=medium
+
+  * Initial Rust implementation of pve-network
+  * Basic project structure and Debian packaging
+  * Core types and validation schemas for network interfaces
+
+ -- Proxmox Support Team <support@proxmox.com>  Wed, 24 Sep 2025 00:00:00 +0000

@@ -1,0 +1,63 @@
+Source: pve-network-rs
+Section: admin
+Priority: optional
+Build-Depends: cargo:native,
+               debhelper-compat (= 13),
+               dh-cargo (>= 25),
+               git,
+               librust-anyhow-1+default-dev,
+               librust-async-trait-0.1+default-dev,
+               librust-clap-4+default-dev,
+               librust-clap-4+derive-dev,
+               librust-env-logger-0.11+default-dev,
+               librust-futures-0.3+default-dev,
+               librust-indexmap-2+default-dev,
+               librust-ipnet-2+default-dev,
+               librust-log-0.4+default-dev,
+               librust-mac-address-1+default-dev,
+               librust-mockall-0.12+default-dev,
+               librust-proxmox-async-0.4+default-dev,
+               librust-proxmox-io-1+default-dev,
+               librust-proxmox-rest-server-0.7+default-dev,
+               librust-proxmox-router-3+default-dev,
+               librust-proxmox-schema-3+default-dev,
+               librust-proxmox-sys-0.6+default-dev,
+               librust-regex-1+default-dev,
+               librust-serde-1+default-dev,
+               librust-serde-1+derive-dev,
+               librust-serde-json-1+default-dev,
+               librust-tempfile-3+default-dev,
+               librust-thiserror-1+default-dev,
+               librust-tokio-1+default-dev,
+               librust-tokio-1+full-dev,
+               libstd-rust-dev,
+               rustc:native,
+Maintainer: Proxmox Support Team <support@proxmox.com>
+Standards-Version: 4.6.1
+Vcs-Git: git://git.proxmox.com/git/pve-network-rs.git
+Vcs-Browser: https://git.proxmox.com/?p=pve-network-rs.git;a=summary
+Homepage: https://www.proxmox.com
+Rules-Requires-Root: no
+
+Package: pve-network-rs
+Architecture: any
+Multi-Arch: allowed
+Depends: ifupdown2,
+         ${misc:Depends},
+         ${shlibs:Depends},
+Conflicts: pve-network (<< 0.9.8)
+Replaces: pve-network (<< 0.9.8)
+Description: Proxmox VE Network Management (Rust implementation)
+ This package provides the Rust implementation of Proxmox VE network
+ management, including traditional networking (bridges, bonds, VLANs)
+ and Software Defined Networking (SDN) capabilities.
+
+Package: pvenet
+Architecture: any
+Multi-Arch: allowed
+Depends: pve-network-rs (= ${binary:Version}),
+         ${misc:Depends},
+         ${shlibs:Depends},
+Description: Proxmox VE Network CLI utilities
+ This package provides the pvenet command-line interface for managing
+ Proxmox VE network configurations.

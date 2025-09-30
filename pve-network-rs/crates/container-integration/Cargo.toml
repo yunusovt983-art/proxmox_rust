@@ -1,0 +1,27 @@
+[package]
+name = "container-integration"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+# Workspace dependencies
+tokio.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+async-trait.workspace = true
+log.workspace = true
+chrono.workspace = true
+pve-shared-types = { path = "../pve-shared-types" }
+pve-event-bus = { path = "../event-bus" }
+
+# Local crates
+pve-network-core = { path = "../net-core" }
+pve-sdn-core = { path = "../sdn-core" }
+
+# Additional dependencies for container integration
+uuid = { version = "1.0", features = ["v4", "serde"] }
+

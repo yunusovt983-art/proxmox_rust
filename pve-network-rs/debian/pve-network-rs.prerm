@@ -1,0 +1,23 @@
+#!/bin/sh
+
+set -e
+
+case "$1" in
+    remove|upgrade|deconfigure)
+        # Stop the service
+        systemctl stop pve-network-rs.service || true
+        systemctl disable pve-network-rs.service || true
+        ;;
+    
+    failed-upgrade)
+        ;;
+    
+    *)
+        echo "prerm called with unknown argument \`$1'" >&2
+        exit 1
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0

@@ -1,0 +1,16 @@
+[package]
+name = "pve-event-bus"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Shared asynchronous event bus for PVE networking services"
+
+[dependencies]
+async-trait.workspace = true
+log.workspace = true
+thiserror.workspace = true
+anyhow.workspace = true
+tokio.workspace = true
+pve-shared-types = { path = "../pve-shared-types" }

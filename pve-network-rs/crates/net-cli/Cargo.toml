@@ -1,0 +1,35 @@
+[package]
+name = "pvenet"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Proxmox VE Network CLI - CLI utilities"
+
+[[bin]]
+name = "pvenet"
+path = "src/main.rs"
+
+[dependencies]
+# Workspace dependencies
+clap.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+log.workspace = true
+env_logger.workspace = true
+pve-shared-types = { path = "../pve-shared-types" }
+chrono = { version = "0.4", features = ["serde"] }
+
+# Local dependencies
+pve-network-core = { path = "../net-core" }
+pve-network-config = { path = "../net-config" }
+pve-network-validate = { path = "../net-validate" }
+pve-network-apply = { path = "../net-apply" }
+pve-network-api = { path = "../net-api" }
+
+[dev-dependencies]
+tempfile.workspace = true

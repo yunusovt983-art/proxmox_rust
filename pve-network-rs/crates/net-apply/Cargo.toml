@@ -1,0 +1,38 @@
+[package]
+name = "pve-network-apply"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Proxmox VE Network Apply - Configuration application"
+
+[dependencies]
+# Workspace dependencies
+# proxmox-sys.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+async-trait.workspace = true
+tokio.workspace = true
+log.workspace = true
+pve-shared-types = { path = "../pve-shared-types" }
+
+# Additional dependencies for transactional application
+md5 = "0.7"
+
+# Local dependencies
+pve-network-core = { path = "../net-core" }
+pve-network-config = { path = "../net-config" }
+pve-network-validate = { path = "../net-validate" }
+pve-event-bus = { path = "../event-bus" }
+
+[dev-dependencies]
+tempfile.workspace = true
+mockall.workspace = true
+env_logger.workspace = true
+
+[[example]]
+name = "transactional_apply"
+path = "../../examples/transactional_apply.rs"

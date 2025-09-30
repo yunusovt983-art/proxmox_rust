@@ -1,0 +1,33 @@
+[package]
+name = "pve-network-test"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Proxmox VE Network Test - Integration tests"
+
+[[bin]]
+name = "contract-test"
+path = "src/bin/contract-test.rs"
+
+[dependencies]
+# Workspace dependencies
+serde.workspace = true
+serde_json.workspace = true
+anyhow.workspace = true
+tokio.workspace = true
+tempfile.workspace = true
+mockall.workspace = true
+log.workspace = true
+env_logger.workspace = true
+clap.workspace = true
+
+# Local dependencies
+pve-network-core = { path = "../net-core" }
+pve-network-config = { path = "../net-config" }
+pve-network-validate = { path = "../net-validate" }
+pve-network-apply = { path = "../net-apply" }
+pve-sdn-core = { path = "../sdn-core" }
+pve-sdn-drivers = { path = "../sdn-drivers" }
+pve-network-api = { path = "../net-api" }

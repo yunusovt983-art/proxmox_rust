@@ -1,0 +1,32 @@
+[package]
+name = "pve-sdn-drivers"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Proxmox VE SDN Drivers - SDN driver implementations"
+
+[dependencies]
+# Workspace dependencies
+# proxmox-schema.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+serde_yaml = "0.9"
+anyhow.workspace = true
+thiserror.workspace = true
+async-trait.workspace = true
+tokio.workspace = true
+ipnet.workspace = true
+log.workspace = true
+chrono.workspace = true
+reqwest.workspace = true
+urlencoding.workspace = true
+
+# Local dependencies
+pve-network-core = { path = "../net-core" }
+pve-sdn-core = { path = "../sdn-core" }
+
+[dev-dependencies]
+tempfile.workspace = true
+mockall.workspace = true

@@ -1,0 +1,29 @@
+[package]
+name = "pve-network-config"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Proxmox VE Network Config - Configuration parsing and generation"
+
+[dependencies]
+# Workspace dependencies
+# proxmox-sys.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+async-trait.workspace = true
+tokio.workspace = true
+regex.workspace = true
+indexmap.workspace = true
+log.workspace = true
+
+# Local dependencies
+pve-network-core = { path = "../net-core" }
+pve-shared-types = { path = "../pve-shared-types" }
+
+[dev-dependencies]
+tempfile.workspace = true
+mockall.workspace = true

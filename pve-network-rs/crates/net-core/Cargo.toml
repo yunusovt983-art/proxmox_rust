@@ -1,0 +1,28 @@
+[package]
+name = "pve-network-core"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Proxmox VE Network Core - Core types and business logic"
+
+[dependencies]
+# Workspace dependencies
+# proxmox-schema.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+async-trait.workspace = true
+tokio.workspace = true
+ipnet.workspace = true
+mac_address.workspace = true
+indexmap.workspace = true
+log.workspace = true
+pve-shared-types = { path = "../pve-shared-types" }
+
+[dev-dependencies]
+tempfile.workspace = true
+mockall.workspace = true
+

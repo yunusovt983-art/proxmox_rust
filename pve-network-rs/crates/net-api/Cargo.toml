@@ -1,0 +1,57 @@
+[package]
+name = "pve-network-api"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Proxmox VE Network API - REST API endpoints"
+
+[[bin]]
+name = "api-server"
+path = "src/bin/api-server.rs"
+
+[dependencies]
+# Workspace dependencies
+# proxmox-router.workspace = true
+# proxmox-rest-server.workspace = true
+# proxmox-schema.workspace = true
+tokio.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+async-trait.workspace = true
+log.workspace = true
+pve-event-bus = { path = "../event-bus" }
+
+# HTTP server and routing
+axum = "0.7"
+tower = "0.4"
+tower-http = { version = "0.5", features = ["cors", "trace"] }
+hyper = { version = "1.0", features = ["full"] }
+
+# Query parameter parsing
+serde_qs = "0.12"
+
+# Date/time handling
+chrono = { version = "0.4", features = ["serde"] }
+
+# Environment and logging
+env_logger.workspace = true
+pve-shared-types = { path = "../pve-shared-types" }
+
+# Local dependencies
+pve-network-core = { path = "../net-core" }
+pve-network-config = { path = "../net-config" }
+pve-network-validate = { path = "../net-validate" }
+pve-network-apply = { path = "../net-apply" }
+pve-sdn-core = { path = "../sdn-core" }
+pve-sdn-drivers = { path = "../sdn-drivers" }
+container-integration = { path = "../container-integration" }
+storage-integration = { path = "../storage-integration" }
+net-migration = { path = "../net-migration" }
+
+[dev-dependencies]
+tempfile.workspace = true
+mockall.workspace = true

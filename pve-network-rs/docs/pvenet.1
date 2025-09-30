@@ -1,0 +1,289 @@
+.TH PVENET 1 "December 2023" "pve-network-rs" "Proxmox VE Network Management"
+.SH NAME
+pvenet \- Proxmox VE Network Management CLI
+.SH SYNOPSIS
+.B pvenet
+[\fIOPTIONS\fR] \fICOMMAND\fR [\fIARGS\fR...]
+.SH DESCRIPTION
+.B pvenet
+is a command-line interface for managing Proxmox VE network configurations.
+It provides tools for validating, applying, rolling back, and monitoring
+network configurations while maintaining compatibility with existing
+Proxmox network management tools.
+
+This tool is part of the Rust migration of pve-network and provides
+enhanced performance and reliability while preserving all existing
+functionality and API compatibility.
+
+.SH GLOBAL OPTIONS
+.TP
+.BR \-V ", " \-\-verbose
+Enable verbose output with detailed information about operations.
+.TP
+.BR \-d ", " \-\-debug
+Enable debug output with extensive logging information.
+.TP
+.BR \-q ", " \-\-quiet
+Suppress all output except errors.
+.TP
+.BR \-h ", " \-\-help
+Show help information and exit.
+.TP
+.BR \-\-version
+Show version information and exit.
+
+.SH COMMANDS
+.SS validate
+Validate network configuration files for syntax and semantic correctness.
+
+.B pvenet validate
+[\fB\-c\fR|\fB\-\-config\fR \fIFILE\fR]
+[\fB\-i\fR|\fB\-\-interface\fR \fIINTERFACE\fR]
+[\fB\-\-syntax\-only\fR]
+[\fB\-\-skip\-ifupdown\fR]
+
+.TP
+.BR \-c ", " \-\-config " " \fIFILE\fR
+Configuration file to validate (default: /etc/network/interfaces)
+.TP
+.BR \-i ", " \-\-interface " " \fIINTERFACE\fR
+Validate specific interface only
+.TP
+.BR \-\-syntax\-only
+Check syntax only, skip semantic validation
+.TP
+.BR \-\-skip\-ifupdown
+Skip ifupdown2 dry-run validation
+
+.SS apply
+Apply network configuration changes to the system.
+
+.B pvenet apply
+[\fB\-d\fR|\fB\-\-dry\-run\fR]
+[\fB\-i\fR|\fB\-\-interface\fR \fIINTERFACE\fR]
+[\fB\-f\fR|\fB\-\-force\fR]
+[\fB\-\-no\-backup\fR]
+[\fB\-c\fR|\fB\-\-config\fR \fIFILE\fR]
+
+.TP
+.BR \-d ", " \-\-dry\-run
+Perform dry-run only (test without applying)
+.TP
+.BR \-i ", " \-\-interface " " \fIINTERFACE\fR
+Apply specific interface only
+.TP
+.BR \-f ", " \-\-force
+Force apply even if validation warnings exist
+.TP
+.BR \-\-no\-backup
+Skip backup creation before apply
+.TP
+.BR \-c ", " \-\-config " " \fIFILE\fR
+Configuration file to apply (default: /etc/network/interfaces)
+
+.SS rollback
+Rollback network configuration to a previous version.
+
+.B pvenet rollback
+[\fB\-v\fR|\fB\-\-version\fR \fIVERSION\fR]
+[\fB\-l\fR|\fB\-\-list\fR]
+[\fB\-\-status\fR]
+[\fB\-f\fR|\fB\-\-force\fR]
+
+.TP
+.BR \-v ", " \-\-version " " \fIVERSION\fR
+Rollback to specific version
+.TP
+.BR \-l ", " \-\-list
+List available backup versions
+.TP
+.BR \-\-status
+Show rollback status
+.TP
+.BR \-f ", " \-\-force
+Force rollback without confirmation
+
+.SS status
+Show network interface status and configuration information.
+
+.B pvenet status
+[\fB\-v\fR|\fB\-\-verbose\fR]
+[\fB\-\-stats\fR]
+[\fB\-i\fR|\fB\-\-interface\fR \fIINTERFACE\fR]
+[\fB\-f\fR|\fB\-\-format\fR \fIFORMAT\fR]
+[\fB\-\-filter\fR \fIPATTERN\fR]
+
+.TP
+.BR \-v ", " \-\-verbose
+Show detailed status information
+.TP
+.BR \-\-stats
+Show interface statistics
+.TP
+.BR \-i ", " \-\-interface " " \fIINTERFACE\fR
+Show status for specific interface
+.TP
+.BR \-f ", " \-\-format " " \fIFORMAT\fR
+Output format (text, json, yaml)
+.TP
+.BR \-\-filter " " \fIPATTERN\fR
+Show only interfaces matching pattern
+
+.SS list
+List network interfaces in pvesh-compatible format.
+
+.B pvenet list
+[\fB\-n\fR|\fB\-\-node\fR \fINODE\fR]
+[\fB\-f\fR|\fB\-\-format\fR \fIFORMAT\fR]
+
+.TP
+.BR \-n ", " \-\-node " " \fINODE\fR
+Node name (default: localhost)
+.TP
+.BR \-f ", " \-\-format " " \fIFORMAT\fR
+Output format (text, json, yaml)
+
+.SS show
+Show network configuration in readable format.
+
+.B pvenet show
+[\fB\-n\fR|\fB\-\-node\fR \fINODE\fR]
+[\fB\-i\fR|\fB\-\-interface\fR \fIINTERFACE\fR]
+
+.TP
+.BR \-n ", " \-\-node " " \fINODE\fR
+Node name (default: localhost)
+.TP
+.BR \-i ", " \-\-interface " " \fIINTERFACE\fR
+Show specific interface configuration
+
+.SS reload
+Reload network configuration (triggers network restart).
+
+.B pvenet reload
+[\fB\-n\fR|\fB\-\-node\fR \fINODE\fR]
+[\fB\-f\fR|\fB\-\-force\fR]
+
+.TP
+.BR \-n ", " \-\-node " " \fINODE\fR
+Node name (default: localhost)
+.TP
+.BR \-f ", " \-\-force
+Force reload without confirmation
+
+.SH EXAMPLES
+.TP
+Validate the default network configuration:
+.B pvenet validate
+
+.TP
+Validate a specific configuration file:
+.B pvenet validate \-c /tmp/interfaces.test
+
+.TP
+Validate only the eth0 interface:
+.B pvenet validate \-i eth0
+
+.TP
+Test configuration changes without applying:
+.B pvenet apply \-\-dry\-run
+
+.TP
+Apply configuration changes:
+.B pvenet apply
+
+.TP
+Apply changes to specific interface:
+.B pvenet apply \-i vmbr0
+
+.TP
+Show basic network status:
+.B pvenet status
+
+.TP
+Show detailed network status:
+.B pvenet status \-\-verbose
+
+.TP
+Show interface statistics:
+.B pvenet status \-\-stats
+
+.TP
+List available rollback versions:
+.B pvenet rollback \-\-list
+
+.TP
+Rollback to previous version:
+.B pvenet rollback
+
+.TP
+Rollback to specific version:
+.B pvenet rollback \-v 20231201\-120000
+
+.TP
+List interfaces in JSON format:
+.B pvenet list \-\-format json
+
+.TP
+Show configuration for specific interface:
+.B pvenet show \-i eth0
+
+.TP
+Reload network configuration:
+.B pvenet reload
+
+.SH FILES
+.TP
+.I /etc/network/interfaces
+Main network configuration file
+.TP
+.I /etc/network/interfaces.d/*
+Additional network configuration files
+.TP
+.I /etc/pve/sdn/
+SDN configuration directory
+.TP
+.I /etc/pve/network\-backups/
+Network configuration backups
+.TP
+.I /var/log/pve\-network\-rollback.log
+Rollback operation log
+.TP
+.I /var/lock/pve\-network\-rollback.lock
+Rollback operation lock file
+
+.SH EXIT STATUS
+.TP
+.B 0
+Success
+.TP
+.B 1
+General error (configuration error, validation failure, etc.)
+.TP
+.B 2
+Command line usage error
+
+.SH COMPATIBILITY
+This tool maintains full compatibility with existing Proxmox VE network
+management tools and provides identical output formats and behavior.
+It can be used as a drop-in replacement for Perl-based network utilities.
+
+The tool supports all existing configuration formats and preserves
+comments, ordering, and custom directives when parsing and generating
+network configuration files.
+
+.SH SEE ALSO
+.BR interfaces (5),
+.BR ifupdown2 (8),
+.BR pvesh (1),
+.BR pve\-network (8)
+
+.SH AUTHOR
+Proxmox Server Solutions GmbH
+
+.SH REPORTING BUGS
+Report bugs to the Proxmox VE development team.
+
+.SH COPYRIGHT
+Copyright \(co 2023 Proxmox Server Solutions GmbH.
+This is free software; see the source for copying conditions.

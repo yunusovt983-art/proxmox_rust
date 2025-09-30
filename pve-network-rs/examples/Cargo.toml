@@ -1,0 +1,39 @@
+[package]
+name = "pve-network-examples"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[example]]
+name = "advanced_network_functions"
+path = "advanced_network_functions.rs"
+
+[[example]]
+name = "sdn_basic_usage"
+path = "sdn_basic_usage.rs"
+
+[[example]]
+name = "ipam_usage"
+path = "ipam_usage.rs"
+
+[[example]]
+name = "container_integration"
+path = "container_integration.rs"
+
+[[example]]
+name = "storage_integration_example"
+path = "storage_integration_example.rs"
+
+[dependencies]
+pve-network-core = { path = "../crates/net-core" }
+pve-network-config = { path = "../crates/net-config" }
+pve-sdn-core = { path = "../crates/sdn-core" }
+pve-sdn-drivers = { path = "../crates/sdn-drivers" }
+container-integration = { path = "../crates/container-integration" }
+storage-integration = { path = "../crates/storage-integration" }
+tokio.workspace = true
+anyhow.workspace = true
+ipnet.workspace = true
+env_logger.workspace = true
+async-trait.workspace = true
